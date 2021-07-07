@@ -14,8 +14,8 @@ import dialogflow_v2
 from google.api_core.exceptions import InvalidArgument
 
 # Twilio config
-account_sid = "ACad46c996fab9739c22936aa5dc5c4787"
-auth_token = "f3b358ab32d5472e823dbdd9fc60e856"
+account_sid = os.getenv('account_sid')
+auth_token = os.getenv('auth_token')
 client = Client(account_sid, auth_token)
 
 # DF Config (API not activated)
