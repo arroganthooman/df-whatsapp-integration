@@ -55,7 +55,7 @@ def reply():
     print("Fulfillment text:", response.query_result.fulfillment_text)
 
     twilio_resp = MessagingResponse()
-    twilio_resp.message(response)
+    twilio_resp.message(response.query.result.fulfillment_text)
 
     return str(twilio_resp)
 
