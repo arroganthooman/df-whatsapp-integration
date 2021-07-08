@@ -14,11 +14,11 @@ import requests
 import json
 
 # Twilio config
-account_sid = os.getenv('account_sid')
+account_sid = os.getenv('account_sid')  
 auth_token = os.getenv('auth_token')
 client = Client(account_sid, auth_token)
 
-## DF Config (API not activated)
+# DF Config (API not activated)
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'secret_key.json' # Secret key is not yet correct (project is wrong)
 DF_PROJECT_ID = os.getenv('project_id')
 DF_LANGUAGE_CODE = 'en'
@@ -34,7 +34,7 @@ def hello_world():
 
 @app.route('/es', methods=["POST"])
 def reply_using_es():
-    SESSION_ID = "test" # ini bisa disimpen di db untuk tiap no.hp
+    SESSION_ID = "test" # ini bisa disimpen di db unique untuk tiap no.hp
 
     session_client = dialogflow_v2.SessionsClient()
     session = session_client.session_path(DF_PROJECT_ID, SESSION_ID)
@@ -48,10 +48,10 @@ def reply_using_es():
     except InvalidArgument:
         raise
 
-    print("Query text:", response.query_result.query_text)
-    print("Detected intent:", response.query_result.intent.display_name)
-    print("Detected intent confidence:", response.query_result.intent_detection_confidence)
-    print("Fulfillment text:", response.query_result.fulfillment_text)
+    # print("Query text:", response.query_result.query_text)
+    # print("Detected intent:", response.query_result.intent.display_name)
+    # print("Detected intent confidence:", response.query_result.intent_detection_confidence)
+    # print("Fulfillment text:", response.query_result.fulfillment_text)
 
     twilio_resp = MessagingResponse()
     twilio_resp.message(response.query.result.fulfillment_text)
@@ -106,6 +106,7 @@ def test_send_message():
     '''
     Test sending message from twilio to whatsapp
     future-purpose: hangout integration
+    hangout-twilio-whatsapp
     '''
 
     client.messages.create(
